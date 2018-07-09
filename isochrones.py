@@ -251,6 +251,15 @@ FourthBinIndex=np.intersect1d(a,b)
 
 FifthBinIndex=np.flatnonzero(FeH>0)
 def myplot(choicelist):
+    absmag = 0
+    lowmag = 0
+    highmag = 0
+    absiso0 = 0
+    absiso05 = 0
+    absiso1 = 0
+    absiso15 =0
+    absiso2 = 0
+    absiso049 = 0
     if choicelist[0] == 'B':
         absmag=MB
         lowmag=MBLow
@@ -375,8 +384,6 @@ def myplot(choicelist):
         secondiso049=HIso049
     if choicelist[2] == 'K':
         colormag2=Kmag 
-        lowmag=MKLow
-        highmag=MKHigh
         secondiso0=KIso0
         secondiso05=KIso05
         secondiso1=KIso1
@@ -387,17 +394,22 @@ def myplot(choicelist):
     mapper = cm.ScalarMappable(norm=norm, cmap=cm.coolwarm)
     mapper.set_array(FeH)
     plt.figure()
-#    plt.errorbar(colormag1[FirstBinIndex]-colormag2[FirstBinIndex], absmag[FirstBinIndex],yerr=[absmag[FirstBinIndex]-lowmag[FirstBinIndex],highmag[FirstBinIndex]-absmag[FirstBinIndex]], fmt='o',c='c',label='[Fe/H]<-1.5',markersize=8)
-#    plt.errorbar(colormag1[SecondBinIndex]-colormag2[SecondBinIndex], absmag[SecondBinIndex],yerr=[absmag[SecondBinIndex]-lowmag[SecondBinIndex],highmag[SecondBinIndex]-absmag[SecondBinIndex]], fmt='o',c='r',label='-1.5<[Fe/H]<-1.0',markersize=8)
-#    plt.errorbar(colormag1[ThirdBinIndex]-colormag2[ThirdBinIndex], absmag[ThirdBinIndex],yerr=[absmag[ThirdBinIndex]-lowmag[ThirdBinIndex],highmag[ThirdBinIndex]-absmag[ThirdBinIndex]], fmt='o',c='g',label='-1.0<[Fe/H]<-0.5',markersize=8)
-#    plt.errorbar(colormag1[FourthBinIndex]-colormag2[FourthBinIndex], absmag[FourthBinIndex],yerr=[absmag[FourthBinIndex]-lowmag[FourthBinIndex],highmag[FourthBinIndex]-absmag[FourthBinIndex]], fmt='o',c='b',label='-0.5<[Fe/H]<0.0',markersize=8)
-#    plt.errorbar(Jmag[FifthBinIndex]-Kmag[FifthBinIndex], MJ[FifthBinIndex],yerr=[MJ[FifthBinIndex]-MJLow[FifthBinIndex],MJHigh[FifthBinIndex]-MJ[FifthBinIndex]], fmt='o',c='k',label='0.0<[Fe/H]',markersize=8)
+    plt.errorbar(colormag1-colormag2, absmag, yerr=[absmag-lowmag, highmag-absmag], fmt = 'none', marker=None, mew=10, c=mapper.to_rgba(FeH))    
+
     plt.scatter(colormag1-colormag2, absmag,c=mapper.to_rgba(FeH),edgecolor='face',s=50)
+
+#    for i, (color1, color2, absm, mag, maglow, maghigh, metal) in enumerate(zip(colormag1, colormag2, absmag, MJ, MJLow, MJHigh, FeH)):
+#        color = mapper.to_rgba(metal)
+#        lowerr=mag-maglow
+#        higherr=maghigh-mag
+#        print(lowerr)
+#        print(higherr)
+#        plt.errorbar(color1-color2, absm, yerr=[-lowerr, -higherr], linestyle='', c=color)
+
 #   plot a specific point with a big black point to check a specific star's position on the HR diagram
 #    abs=8.808-5*np.log10(71.50512977)+5
 #    plt.scatter(8.808-8.33,abs,c='k',s=75)
-    colors=[0.01,-0.29,-0.79,-1.29,-1.99]
-    colors=np.asarray(colors)
+
     plt.plot(firstiso0-secondiso0, absiso0,c=mapper.to_rgba(0.01))#fifth
     plt.plot(firstiso05-secondiso05, absiso05,c=mapper.to_rgba(-0.29))#fourth
     plt.plot(firstiso1-secondiso1, absiso1,c=mapper.to_rgba(-0.79))#third
