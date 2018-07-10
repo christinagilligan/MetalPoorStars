@@ -32,39 +32,45 @@ data = np.array(list(csv_f))
 Name=np.array(data[:,0],dtype=str)
 names=list(Name)
 Bmag=np.array(data[:,1],dtype=float)
-Vmag=np.array(data[:,2],dtype=float)
-Gmag=np.array(data[:,3],dtype=float)
-Jmag=np.array(data[:,4],dtype=float)
-Hmag=np.array(data[:,5],dtype=float)
-Kmag=np.array(data[:,6],dtype=float)
-FeH=np.array(data[:,7],dtype=float)
-Dis=np.array(data[:,8],dtype=float)
-DisLow=np.array(data[:,9],dtype=float)
-DisHigh=np.array(data[:,10],dtype=float)
+Berr=np.array(data[:,2],dtype=float)
+Vmag=np.array(data[:,3],dtype=float)
+Verr=np.array(data[:,4],dtype=float)
+Gmag=np.array(data[:,5],dtype=float)
+Gerr=np.array(data[:,6],dtype=float)
+Jmag=np.array(data[:,7],dtype=float)
+Jerr=np.array(data[:,8],dtype=float)
+Hmag=np.array(data[:,9],dtype=float)
+Herr=np.array(data[:,10],dtype=float)
+Kmag=np.array(data[:,11],dtype=float)
+Kerr=np.array(data[:,12],dtype=float)
+FeH=np.array(data[:,13],dtype=float)
+Dis=np.array(data[:,14],dtype=float)
+DisLow=np.array(data[:,15],dtype=float)
+DisHigh=np.array(data[:,16],dtype=float)
 
 MB=Bmag-5*np.log10(Dis)+5
 MBLow=Bmag-5*np.log10(DisLow)+5
 MBHigh=Bmag-5*np.log10(DisHigh)+5
 
 MV=Vmag-5*np.log10(Dis)+5
-MVLow=Vmag-5*np.log10(DisLow)+5
-MVHigh=Vmag-5*np.log10(DisHigh)+5
+MVLow=(Vmag+Verr)-5*np.log10(DisLow)+5
+MVHigh=(Vmag-Verr)-5*np.log10(DisHigh)+5
 
 MG=Gmag-5*np.log10(Dis)+5
-MGLow=Gmag-5*np.log10(DisLow)+5
-MGHigh=Gmag-5*np.log10(DisHigh)+5
+MGLow=(Gmag+Gerr)-5*np.log10(DisLow)+5
+MGHigh=(Gmag-Gerr)-5*np.log10(DisHigh)+5
 
 MJ=Jmag-5*np.log10(Dis)+5
-MJLow=Jmag-5*np.log10(DisLow)+5
-MJHigh=Jmag-5*np.log10(DisHigh)+5
+MJLow=(Jmag+Jerr)-5*np.log10(DisLow)+5
+MJHigh=(Jmag-Jerr)-5*np.log10(DisHigh)+5
 
 MH=Hmag-5*np.log10(Dis)+5
-MHLow=Hmag-5*np.log10(DisLow)+5
-MHHigh=Hmag-5*np.log10(DisHigh)+5
+MHLow=(Hmag+Herr)-5*np.log10(DisLow)+5
+MHHigh=(Hmag-Herr)-5*np.log10(DisHigh)+5
 
 MK=Kmag-5*np.log10(Dis)+5
-MKLow=Kmag-5*np.log10(DisLow)+5
-MKHigh=Kmag-5*np.log10(DisHigh)+5
+MKLow=(Kmag+Kerr)-5*np.log10(DisLow)+5
+MKHigh=(Kmag-Kerr)-5*np.log10(DisHigh)+5
 
 BIso1=[]
 VIso1=[]
@@ -312,6 +318,7 @@ def myplot(choicelist):
         absiso049=KIso049
     if choicelist[1] == 'B':
         colormag1=Bmag
+        colormag1err=Berr
         firstiso0=BIso0
         firstiso05=BIso05
         firstiso1=BIso1
@@ -320,6 +327,7 @@ def myplot(choicelist):
         firstiso049=BIso049
     if choicelist[1] == 'V':
         colormag1=Vmag
+        colormag1err=Verr
         firstiso0=VIso0
         firstiso05=VIso05
         firstiso1=VIso1
@@ -328,6 +336,7 @@ def myplot(choicelist):
         firstiso049=VIso049
     if choicelist[1] == 'J':
         colormag1=Jmag
+        colormag1err=Jerr
         firstiso0=JIso0
         firstiso05=JIso05
         firstiso1=JIso1
@@ -336,6 +345,7 @@ def myplot(choicelist):
         firstiso049=JIso049
     if choicelist[1] == 'H':
         colormag1=Hmag
+        colormag1err=Herr
         firstiso0=HIso0
         firstiso05=HIso05
         firstiso1=HIso1
@@ -344,6 +354,7 @@ def myplot(choicelist):
         firstiso049=HIso049
     if choicelist[1] == 'K':
         colormag1=Kmag
+        colormag1err=Kerr
         firstiso0=KIso0
         firstiso05=KIso05
         firstiso1=KIso1
@@ -352,6 +363,7 @@ def myplot(choicelist):
         firstiso049=KIso049
     if choicelist[2] == 'B':
         colormag2=Bmag
+        colormag2err=Berr
         secondiso0=BIso0
         secondiso05=BIso05
         secondiso1=BIso1
@@ -360,6 +372,7 @@ def myplot(choicelist):
         secondiso049=BIso049
     if choicelist[2] == 'V':
         colormag2=Vmag
+        colormag2err=Vmerr
         secondiso0=VIso0
         secondiso05=VIso05
         secondiso1=VIso1
@@ -368,6 +381,7 @@ def myplot(choicelist):
         secondiso049=VIso049
     if choicelist[2] == 'J':
         colormag2=Jmag
+        colormag2err=Jerr
         secondiso0=JIso0
         secondiso05=JIso05
         secondiso1=JIso1
@@ -376,6 +390,7 @@ def myplot(choicelist):
         secondiso049=JIso049
     if choicelist[2] == 'H':
         colormag2=Hmag
+        colormag2err=Herr
         secondiso0=HIso0
         secondiso05=HIso05
         secondiso1=HIso1
@@ -383,18 +398,21 @@ def myplot(choicelist):
         secondiso2=HIso2
         secondiso049=HIso049
     if choicelist[2] == 'K':
-        colormag2=Kmag 
+        colormag2=Kmag
+        colormag2err=Kerr
         secondiso0=KIso0
         secondiso05=KIso05
         secondiso1=KIso1
         secondiso15=KIso15
         secondiso2=KIso2
         secondiso049=KIso049
+
+    xerror=np.sqrt(colormag1err**2+colormag2err**2)
     norm = matplotlib.colors.Normalize(vmin=np.min(FeH), vmax=np.max(FeH), clip=True)
     mapper = cm.ScalarMappable(norm=norm, cmap=cm.coolwarm)
     mapper.set_array(FeH)
     plt.figure()
-    plt.errorbar(colormag1-colormag2, absmag, yerr=[absmag-lowmag, highmag-absmag], fmt = 'none', marker=None, mew=10, c=mapper.to_rgba(FeH))    
+    plt.errorbar(colormag1-colormag2, absmag, yerr=[absmag-lowmag, highmag-absmag], xerr=xerror, fmt = 'none', marker=None, mew=10, c=mapper.to_rgba(FeH))
 
     plt.scatter(colormag1-colormag2, absmag,c=mapper.to_rgba(FeH),edgecolor='face',s=50)
 
@@ -418,10 +436,11 @@ def myplot(choicelist):
     plt.plot(firstiso049-secondiso049, absiso049,c=mapper.to_rgba(-0.49))
 
     plt.gca().invert_yaxis()
-    plt.xlabel(str(choicelist[1])+'-'+str(choicelist[2]))
-    plt.ylabel('M_'+str(choicelist[0]))
+    plt.xlabel(r'${}$'.format(str(choicelist[0]))+'-'+r'${}$'.format(str(choicelist[2])))
+#    plt.ylabel('M_'+str(choicelist[0]))
+    plt.ylabel(r'$M_{}$'.format(str(choicelist[0])))
 #    plt.legend(numpoints = 1 )
     cbar = plt.colorbar(mapper)
-    cbar.set_label('[Fe/H]',rotation=270,labelpad=10)
+    cbar.set_label(r'$[Fe/H]$',rotation=270,labelpad=10)
     
     plt.show()  
